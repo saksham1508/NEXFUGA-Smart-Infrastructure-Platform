@@ -36,14 +36,10 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-
-  /* NexFuga Custom Brand Colors */
-  --color-gold: var(--gold);
-  --color-gold-hover: var(--gold-hover);
-  --color-gold-foreground: var(--gold-foreground);
-  --color-charcoal: var(--charcoal);
-  --color-charcoal-foreground: var(--charcoal-foreground);
-
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-cyan: var(--cyan);
+  --color-tech-blue: var(--tech-blue);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
   --radius-sm: calc(var(--radius) * 0.6);
@@ -57,238 +53,121 @@
 
 :root {
   color-scheme: light;
-
-  /* NexFuga Core Brand Colors */
-  --gold: #f3a218;
-  --gold-hover: #d98e0c;
-  --gold-foreground: #0f1012;
-  --charcoal: #23252b;
-  --charcoal-foreground: #f8fafc;
-
-  /* Gradient Stop-Points (High Contrast for Light Mode) */
-  --gold-gradient-start: #d97706;
-  /* Rich Amber so text remains crisp */
-  --gold-gradient-end: #f59e0b;
-  /* Bright Gold */
-
-  /* Light Theme - Clean Warm White Canvas */
-  --background: #fcfbfa;
-  --foreground: #1c1d21;
+  --background: #f8fafc;
+  --foreground: #0b132b;
   --card: #ffffff;
-  --card-foreground: #1c1d21;
+  --card-foreground: #0b132b;
   --popover: #ffffff;
-  --popover-foreground: #1c1d21;
-
-  --primary: #f3a218;
-  --primary-foreground: #0f1012;
-
-  --secondary: #f6efe3;
-  --secondary-foreground: #1c1d21;
-
-  --muted: #f2eee7;
-  --muted-foreground: #6b6c75;
-
-  --accent: #fef5e7;
-  --accent-foreground: #1c1d21;
-
+  --popover-foreground: #0b132b;
+  --primary: #0072ce;
+  --primary-foreground: #ffffff;
+  --secondary: #eef4fb;
+  --secondary-foreground: #0b132b;
+  --muted: #eef2f7;
+  --muted-foreground: #5a6b85;
+  --accent: #00d2ff;
+  --accent-foreground: #0b132b;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e8e3da;
-  --input: #e8e3da;
-  --ring: #f3a218;
-
-  --chart-1: #f3a218;
-  --chart-2: #23252b;
-  --chart-3: #fbbf24;
-  --chart-4: #4b4d54;
-  --chart-5: #d97706;
-
-  --radius: 0.75rem;
-
-  --sidebar: #f8f6f0;
-  --sidebar-foreground: #1c1d21;
-  --sidebar-primary: #f3a218;
-  --sidebar-primary-foreground: #0f1012;
-  --sidebar-accent: #f2eee7;
-  --sidebar-accent-foreground: #1c1d21;
-  --sidebar-border: #e8e3da;
-  --sidebar-ring: #f3a218;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0072ce;
+  --navy: #0b132b;
+  --navy-foreground: #f8fafc;
+  --cyan: #00d2ff;
+  --tech-blue: #0072ce;
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
   color-scheme: dark;
-
-  /* Gradient Stop-Points (Bright Glow for Dark Mode) */
-  --gold-gradient-start: #f59e0b;
-  --gold-gradient-end: #fbbf24;
-
-  /* Dark Theme - Premium Matte Obsidian */
-  --background: #0f1012;
-  --foreground: #f3f4f6;
-  --card: #17181c;
-  --card-foreground: #f3f4f6;
-  --popover: #17181c;
-  --popover-foreground: #f3f4f6;
-
-  --primary: #f3a218;
-  --primary-foreground: #0f1012;
-
-  --secondary: #212329;
-  --secondary-foreground: #f3f4f6;
-
-  --muted: #212329;
-  --muted-foreground: #9ca3af;
-
-  --accent: #212329;
-  --accent-foreground: #f3a218;
-
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: #282a32;
-  --input: #282a32;
-  --ring: #f3a218;
-
-  --chart-1: #f3a218;
-  --chart-2: #94a3b8;
-  --chart-3: #fbbf24;
-  --chart-4: #64748b;
-  --chart-5: #d97706;
-
-  --sidebar: #0b0c0e;
-  --sidebar-foreground: #f3f4f6;
-  --sidebar-primary: #f3a218;
-  --sidebar-primary-foreground: #0f1012;
-  --sidebar-accent: #17181c;
-  --sidebar-accent-foreground: #f3a218;
-  --sidebar-border: #282a32;
-  --sidebar-ring: #f3a218;
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     color-scheme: dark;
-    --gold-gradient-start: #f59e0b;
-    --gold-gradient-end: #fbbf24;
-    --background: #0f1012;
-    --foreground: #f3f4f6;
-    --card: #17181c;
-    --card-foreground: #f3f4f6;
-    --popover: #17181c;
-    --popover-foreground: #f3f4f6;
-    --primary: #f3a218;
-    --primary-foreground: #0f1012;
-    --secondary: #212329;
-    --secondary-foreground: #f3f4f6;
-    --muted: #212329;
-    --muted-foreground: #9ca3af;
-    --accent: #212329;
-    --accent-foreground: #f3a218;
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
     --destructive: oklch(0.704 0.191 22.216);
-    --border: #282a32;
-    --input: #282a32;
-    --ring: #f3a218;
-    --chart-1: #f3a218;
-    --chart-2: #94a3b8;
-    --chart-3: #fbbf24;
-    --chart-4: #64748b;
-    --chart-5: #d97706;
-    --sidebar: #0b0c0e;
-    --sidebar-foreground: #f3f4f6;
-    --sidebar-primary: #f3a218;
-    --sidebar-primary-foreground: #0f1012;
-    --sidebar-accent: #17181c;
-    --sidebar-accent-foreground: #f3a218;
-    --sidebar-border: #282a32;
-    --sidebar-ring: #f3a218;
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
   }
 }
-
-/* =========================================================
-   BASE TYPOGRAPHY FIXES (Prevents Heading Dropping/Invisible Text)
-   ========================================================= */
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
   body {
-    @apply bg-background text-foreground tracking-tight;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  }
-
-  /* Ensures headings stay perfectly aligned and don't collapse down */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-semibold text-foreground tracking-tight align-baseline;
-    line-height: 1.15;
-    margin-top: 0;
-  }
-
-  h1 {
-    @apply text-4xl sm:text-5xl lg:text-6xl font-bold;
-    letter-spacing: -0.03em;
-  }
-
-  h2 {
-    @apply text-2xl sm:text-3xl lg:text-4xl font-semibold;
-    letter-spacing: -0.02em;
-  }
-
-  h3 {
-    @apply text-xl sm:text-2xl font-semibold;
-  }
-}
-
-/* =========================================================
-   TEXT GRADIENT & LUXURY BRAND UTILITIES
-   ========================================================= */
-
-@layer utilities {
-
-  /* High-visibility Gold Text Gradient (Fixes "intelligent" fading out) */
-  .text-gradient-gold {
-    background: linear-gradient(135deg, var(--gold-gradient-start) 0%, var(--gold-gradient-end) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Gold-to-Charcoal Gradient */
-  .text-gradient-brand {
-    background: linear-gradient(120deg, #d97706 0%, #1c1d21 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .dark .text-gradient-brand {
-    background: linear-gradient(120deg, #fbbf24 0%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Glassmorphism Cards */
-  .glass-card {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(243, 162, 24, 0.15);
-  }
-
-  .dark .glass-card {
-    background: rgba(23, 24, 28, 0.6);
-    border: 1px solid rgba(243, 162, 24, 0.12);
-  }
-
-  /* Golden Glow Effects */
-  .gold-glow {
-    box-shadow: 0 0 35px -5px rgba(243, 162, 24, 0.25);
+    @apply bg-background text-foreground;
   }
 }
