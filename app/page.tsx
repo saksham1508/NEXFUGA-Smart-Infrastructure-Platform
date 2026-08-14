@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useState, useTransition, type FormEvent } from 'react'
 import { motion } from 'framer-motion'
+import { submitAudit } from '@/app/actions/audit'
 import {
   Sun,
   Cctv,
@@ -36,31 +37,67 @@ const SOLUTIONS = [
     icon: Sun,
     title: 'Commercial Solar',
     desc: 'Rooftop and ground-mount PV systems engineered for maximum yield and rapid ROI across facilities.',
+    metric: 'Payback in 3–5 yrs',
+    features: [
+      'Bifacial panels + string/central inverters',
+      'Battery storage & peak-shaving',
+      'Live generation & savings dashboards',
+    ],
   },
   {
     icon: Building2,
     title: 'Building Automation (BMS)',
     desc: 'Unified HVAC, lighting, and energy controls that adapt in real time to occupancy and load.',
+    metric: 'Up to 40% less energy',
+    features: [
+      'Occupancy & daylight-aware controls',
+      'BACnet / Modbus device integration',
+      'Fault detection & predictive scheduling',
+    ],
   },
   {
     icon: Network,
     title: 'Networking & Cabling',
     desc: 'Enterprise-grade structured cabling and Wi-Fi 7 backbones built for zero downtime.',
+    metric: '99.9% uptime',
+    features: [
+      'Cat6A / OM4 fiber structured cabling',
+      'Wi-Fi 7 mesh & VLAN segmentation',
+      'Redundant links with failover',
+    ],
   },
   {
     icon: Cctv,
     title: 'AI CCTV Security',
     desc: 'Perimeter intelligence with real-time anomaly detection, LPR, and instant alerting.',
+    metric: 'Sub-second alerts',
+    features: [
+      'Person, vehicle & license-plate recognition',
+      'Behavioral anomaly detection',
+      'Cloud + on-prem NVR redundancy',
+    ],
   },
   {
     icon: PlugZap,
     title: 'EV Charging',
     desc: 'Scalable AC/DC charging infrastructure with load balancing and billing integration.',
+    metric: '7kW–350kW ready',
+    features: [
+      'AC destination & DC fast charging',
+      'Dynamic load balancing',
+      'OCPP billing & access control',
+    ],
   },
   {
     icon: BrainCircuit,
     title: 'AI Orchestration',
     desc: 'A single control plane that ties every system into one intelligent, self-optimizing platform.',
+    metric: 'One control plane',
+    features: [
+      'Cross-system automation rules',
+      'Unified analytics & reporting',
+      'Self-optimizing energy & load logic',
+    ],
   },
 ]
 
@@ -273,7 +310,8 @@ function Hero() {
           >
             NEXFUGA unifies commercial solar, building automation, enterprise
             networking, AI security, and EV charging into one self-optimizing
-            platform — engineered for factories, facilities, and tech startups.
+            platform — so factories, facilities, and fast-scaling teams cut
+            costs, downtime, and risk from a single pane of glass.
           </motion.p>
 
           <motion.div
@@ -314,8 +352,9 @@ function Solutions() {
             One platform. Every smart system.
           </h2>
           <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-            Modular solutions that integrate seamlessly — deploy one, or connect
-            them all under a single intelligent control plane.
+            Six modular solutions that integrate seamlessly — start with the one
+            you need today, then connect them all under a single intelligent
+            control plane as you scale.
           </p>
         </div>
 
@@ -330,8 +369,13 @@ function Solutions() {
               custom={i}
               className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5"
             >
-              <div className="grid h-12 w-12 place-items-center rounded-xl bg-secondary text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                <s.icon className="h-6 w-6" aria-hidden />
+              <div className="flex items-center justify-between">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-secondary text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <s.icon className="h-6 w-6" aria-hidden />
+                </div>
+                <span className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
+                  {s.metric}
+                </span>
               </div>
               <h3 className="mt-5 font-display text-lg font-semibold">
                 {s.title}
@@ -339,6 +383,17 @@ function Solutions() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {s.desc}
               </p>
+              <ul className="mt-4 space-y-2 border-t border-border pt-4">
+                {s.features.map((f) => (
+                  <li
+                    key={f}
+                    className="flex items-start gap-2 text-sm text-foreground/80"
+                  >
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
               <span
                 className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-cyan/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100"
                 aria-hidden
@@ -441,6 +496,8 @@ function LeadForm() {
   const [values, setValues] = useState<FormState>(EMPTY)
   const [errors, setErrors] = useState<FormErrors>({})
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [pending, startTransition] = useTransition()
 
   const set =
     (key: keyof FormState) =>
@@ -469,12 +526,27 @@ function LeadForm() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
+    setSubmitError(null)
     const next = validate(values)
     setErrors(next)
-    if (Object.keys(next).length === 0) {
-      setSubmitted(true)
-      setValues(EMPTY)
-    }
+    if (Object.keys(next).length > 0) return
+
+    startTransition(async () => {
+      const res = await submitAudit({
+        name: values.name,
+        email: values.email,
+        company: values.company,
+        phone: values.phone,
+        need: values.need,
+        message: values.message,
+      })
+      if (res.ok) {
+        setSubmitted(true)
+        setValues(EMPTY)
+      } else {
+        setSubmitError(res.error)
+      }
+    })
   }
 
   const fieldBase =
@@ -663,12 +735,31 @@ function LeadForm() {
                     </Field>
                   </div>
 
+                  {submitError && (
+                    <p
+                      className="mt-4 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive"
+                      role="alert"
+                    >
+                      {submitError}
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.02]"
+                    disabled={pending}
+                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100"
                   >
-                    Request My Audit
-                    <ArrowRight className="h-4 w-4" aria-hidden />
+                    {pending ? (
+                      <>
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground" />
+                        Submitting…
+                      </>
+                    ) : (
+                      <>
+                        Request My Audit
+                        <ArrowRight className="h-4 w-4" aria-hidden />
+                      </>
+                    )}
                   </button>
                 </form>
               )}
@@ -771,11 +862,11 @@ function Footer() {
             <ul className="mt-4 space-y-3 text-sm text-navy-foreground/70">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-cyan" aria-hidden />
-                hello@nexfuga.com
+                info@nexfuga.com
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-cyan" aria-hidden />
-                +1 (415) 555-0199
+                +91 8839825442 9399234376
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-cyan" aria-hidden />
